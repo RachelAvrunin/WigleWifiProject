@@ -1,18 +1,16 @@
-
 public interface Filter {
 	boolean test (RowsRead item);
+	/**
+	 * @author Rachel
+	 * 
+	 * this interface is for filtering the ArrayList for the Kml files
+	 * it help's us by no needing a full class for each filter type  
+	 */
 }
-/**
- * @author Rachel
- * 
- * this interface is for filtering the ArrayList for the Kml files
- * it help's us by no needing a full class for each filter type  
- */
-
-
 
 class IdFilter implements Filter {
 	private String id;
+	
 	/**
 	 * @param id
 	 * this function implements the filter class 
