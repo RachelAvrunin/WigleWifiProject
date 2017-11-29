@@ -6,26 +6,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-
-/**
- * @author Rachel
- * 
- * this class only read folders and files for the csv task
- * and contains an ArryList of Rows
- * 
- */
 
 public class ReaderForCsv {
+	/**
+	 * @author Rachel
+	 * 
+	 * this class only read folders and files for the csv task
+	 * and contains an ArryList of FinalRow
+	 */
+
 	static ArrayList<FinalRow> Lines = new ArrayList<FinalRow>();
 	private static int index=0;
-	
+
 	/**
 	 * @param foldername
-	 * This function gets String folder name and send to the function check each file from the folder 
 	 * 
+	 * This function gets String folder name and send to the function check each file from the folder
 	 */
-	
 	public static void readFolder(String foldername) {
 
 		Path p= Paths.get(foldername);
@@ -44,11 +41,10 @@ public class ReaderForCsv {
 
 	/**
 	 * @param file
+	 * 
 	 * the function gets file names and check them if they are in the right format 
 	 * if they are it sends it to the function read
-	 * 
 	 */
-
 	public static void check(String file){
 
 		if (file.contains("WigleWifi") && file.contains(".csv"))
@@ -58,12 +54,12 @@ public class ReaderForCsv {
 
 	/***
 	 * @param filename
+	 * 
 	 * the function gets file names from the function check
-	 * read the file and return ArrayList of Rows with only what we need
+	 * read the file take only the strongest networks and return ArrayList of FinalRows
 	 * 
 	 * Source https://www.mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/
 	 */
-
 	public static void read (String filename){
 
 		BufferedReader br = null;
@@ -81,18 +77,18 @@ public class ReaderForCsv {
 			String splitDate[]=new String [2];
 
 
-			// first line 
+			// read first line and takes the id of the file
 			sCurrentLine =br.readLine();
 			splitString=sCurrentLine.split(",");
 			id=splitString[2];
 			int indexForId = id.indexOf("=");
 			id = id.substring(indexForId+1, id.length() );
 
-			// second line 
+			// read second line and ignores it
 			sCurrentLine =br.readLine();
 
 
-			// all the other lines until file is empty
+			// read all the other lines until file is empty
 			sCurrentLine = br.readLine();	
 			splitString=sCurrentLine.split(",");
 
@@ -123,13 +119,8 @@ public class ReaderForCsv {
 						splitDate=splitString[3].split(" ");
 					}
 				} 
-				Collections.sort(temp,new Comparator<RowsRead>() {
-					@Override
-					public int compare(RowsRead o1, RowsRead o2) {
-						return o2.Signal - o1.Signal;
-					}
-				});
-				
+				Collections.sort(temp);
+
 				if  (!temp.isEmpty()){
 					Lines.add(new FinalRow(
 							temp.get(0).date,				//String date

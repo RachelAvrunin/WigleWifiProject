@@ -4,24 +4,37 @@ import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.Placemark;
 
-
-// kml created with the help of the site: https://labs.micromata.de/projects/jak/quickstart.html
 public class KmlReadWrite {
+	/**
+	 * @author Rachel
+	 * 
+	 * this class responsible for sending the FILENAME to the reader -ReaderForkml
+	 * and take the ArryList from it and create a Kml file with it
+	 * 
+	 * Source: kml created with the help of the site: https://labs.micromata.de/projects/jak/quickstart.html
+	 */
+	private static final String FILENAME = "C:\\Users\\Rachel\\Downloads\\study\\OR\\StrongestWifi.csv";
 
-
+	/**
+	 * This function calls the ReaderForKml to read the file name 
+	 * filters it with what we decide and enter
+	 * and create the Kml file by adding the data to every dot 
+	 */
 	@SuppressWarnings("static-access")
 	public static void readWrite () {
 
 		ReaderForKml k=new ReaderForKml();
 
-		k.readForKml("C:\\Users\\Rachel\\Downloads\\study\\OR\\StrongestWifi.csv");
+		k.readForKml(FILENAME);
 
 		//TimeFilter t= new TimeFilter("2017-10-27 16:12:01");
-		//IdFilter id= new IdFilter("ONEPLUS A3003");
+		IdFilter id= new IdFilter("Lenovo PB2-690Y");
 		//LocationFilter l =new LocationFilter(34.81328609, 32.16857397,38);
 		//filter(k.Lines, t);
-		//filter(k.Lines, id);
+		filter(k.Lines, id);
 		//filter(k.Lines, l);
+
+		k.deleteEquals();
 
 		try {
 
@@ -39,8 +52,7 @@ public class KmlReadWrite {
 				Placemark pl = document.createAndAddPlacemark();
 				pl.createAndSetTimeStamp().withWhen(str+"Z");
 				pl.withName(k.Lines.get(i).SSID).withOpen(Boolean.TRUE)
-				.withId(k.Lines.get(i).id)
-				.withDescription("signal="+k.Lines.get(i).Signal+", frequncy = "+k.Lines.get(i).frequncy)
+				.withDescription("id= "+k.Lines.get(i).id+", signal= "+k.Lines.get(i).Signal+", frequncy= "+k.Lines.get(i).frequncy)
 				.withAddress(k.Lines.get(i).mac).createAndSetPoint()
 				.addToCoordinates( k.Lines.get(i).longtitude,k.Lines.get(i).latitude,k.Lines.get(i).altitude);
 			}
@@ -52,7 +64,13 @@ public class KmlReadWrite {
 		} 
 	}
 
-
+	/**
+	 * @param list
+	 * @param cond
+	 * 
+	 * this function send to the filter class to filter by the filter sent to the function
+	 * and return the same list filtered 
+	 */
 	public static void filter(ArrayList<RowsRead> list, Filter cond){
 		ArrayList<RowsRead> ans = new ArrayList<>();
 		for(RowsRead r : list) {
@@ -62,17 +80,7 @@ public class KmlReadWrite {
 		while (!list.isEmpty()) 
 			list.remove(0);
 		for (int i = 0; i < ans.size(); i++) {
-			list.add(new RowsRead(
-					ans.get(i).date,				//String date
-					ans.get(i).time,				//String time
-					ans.get(i).id,					//String id
-					ans.get(i).latitude,			// double latitude
-					ans.get(i).longtitude,			//double longtitude
-					ans.get(i).altitude,			//double altitude
-					ans.get(i).Signal,				//int Signal
-					ans.get(i).SSID,				//String SSID
-					ans.get(i).mac,					//String mac
-					ans.get(i).frequncy)); 			//int frequncy
+			list.add(new RowsRead(ans.get(i)));
 		}
 	}
 
