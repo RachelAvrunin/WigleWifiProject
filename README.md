@@ -1,1 +1,2 @@
-"#oop" 
+The system is built from a several departments, its job is to read a folder, filter the files we need and read them one by one and taking all the data we need from it, arrange it in a ArrayList, and take only the 10 strongest wifi signals and then write it back to a csv file.
+The second part of the project is to take the file we wrote, read it, filter it as we like using MyConsole and then remove all duplicates SSID to show only the strongest one, and write a kml file using Jak system.

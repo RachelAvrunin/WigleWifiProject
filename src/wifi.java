@@ -1,8 +1,21 @@
 public class wifi {
-
+	/**
+	 * @author Rachel 
+	 * 
+	 * this class represents the wifi signals inside the finalRow
+	 */
+	
 	int Signal, frequncy ;
 	String SSID, mac;
 
+	/**
+	 * @param Signal
+	 * @param mac
+	 * @param SSID
+	 * @param frequncy
+	 * 
+	 * the constructor
+	 */
 	public wifi(int Signal, String mac, String SSID, int frequncy) {
 		this.Signal = Signal;
 		this.mac = mac;
@@ -10,42 +23,11 @@ public class wifi {
 		this.frequncy = frequncy;
 
 	}
-	
-	public void addWifi(int Signal, String mac, String SSID, int frequncy) {
-		this.Signal = Signal;
-		this.mac = mac;
-		this.SSID = SSID;
-		this.frequncy = frequncy;
 
-	}
-	/*
-  	public wifi(Rows row) {
-
-		this.mac = row.mac;
-		this.SSID = row.SSID;
-		this.time = row.time;
-		this.Signal = row.Signal;
-		this.frequncy = row.frequncy;
-		this.longtitude = row.longtitude;
-		this.latitude = row.latitude;
-		this.altitude = row.altitude;
-		this.id = row.id;
-		//stem.out.println(time);
-	}
-
-	public String toString() {
-		return mac + "," + SSID + "," + time + "," + id + "," + Signal + "," + frequncy + "," + longtitude + "," + latitude + "," + altitude + System.lineSeparator();
-	}
-
-	public int compareTo(wifi a) {
-		return (int)a.Signal - this.Signal;
-
-	}*/
-
-	
+	/**
+	 * toString function
+	 */
 	public String toString() {
 		return Signal + "," + SSID + "," + mac + "," + frequncy;
 	}
 }
-
-
