@@ -46,7 +46,7 @@ class TimeFilter implements Filter {
 	}
 }
 class LocationFilter implements Filter {
-	private double lat, lon,alt;
+	private double lat, lon;
 
 	/**
 	 * @param lon
@@ -56,15 +56,14 @@ class LocationFilter implements Filter {
 	 * this function implements the filter class 
 	 * and filter by radius of location 
 	 */
-	public LocationFilter(double lat,double lon,double alt) {
+	public LocationFilter(double lat,double lon) {
 		this.lat = lat;
 		this.lon = lon;
-		this.alt = alt;
 	}
 
 	@Override
 	public boolean test(RowsRead item) {
-		double dist=Math.sqrt(Math.pow(item.latitude-lat, 2)+Math.pow(item.longtitude-lon, 2)+Math.pow(item.altitude-alt, 2));
+		double dist=Math.sqrt(Math.pow(item.latitude-lat, 2)+Math.pow(item.longtitude-lon, 2));
 		return (dist<0.005);
 	}
 }

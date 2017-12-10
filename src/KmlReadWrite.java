@@ -92,7 +92,7 @@ public class KmlReadWrite {
 			//lat=MyConsole.readDouble("Insert a lat you want");
 			//alt=MyConsole.readDouble("Insert a alt you want");
 			//LocationFilter l =new LocationFilter(lon, lat, alt);
-			LocationFilter l =new LocationFilter(32.16857397,34.81328609, 38);
+			LocationFilter l =new LocationFilter(32.16690033,34.80890703);
 			filter(list, l);
 			System.out.println("LocationFilter done");
 			break;
