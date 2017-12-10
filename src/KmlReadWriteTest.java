@@ -120,11 +120,14 @@ public class KmlReadWriteTest {
 		list1.add(new RowsRead("28/10/2017" ,"18:34:15", "LG-H850",32.369, 34.756, 38, -60, "DIRECT-A5dfnb","fc:1f:db:7e:72:a6" ,44));
 		list1.add(new RowsRead("28/10/2017" ,"18:00:17", "LG-H850",32.147, 34.741, 40, -72, "DIRECT-A5zcvvb","fg:8f:db:7e:52:a6" ,2));
 
-		LocationFilter l= new LocationFilter(32.151,34.754,40);
+		LocationFilter l= new LocationFilter(32.151,34.754);
 		KmlReadWrite.filter(list1, l);
 
 		list2.add(new RowsRead("26/10/2017" ,"15:50:20", "Lenovo PB2-690Y",32.152, 34.751, 40, -70, "DIRECT-A5-Hcvb","fc:4f:db:7e:50:a6" ,1));
 		list2.add(new RowsRead("26/10/2017" ,"16:35:20", "Lenovo PB2-690Y",32.151, 34.755, 40, -80, "DIRECT-Adfb","fc:7f:db:7e:70:v6" ,3));
+		list2.add(new RowsRead("26/10/2017" ,"15:50:20", "LG-H850",32.149, 34.752, 42, -59, "DIRECT-sAsfgn5-HP","ff:3f:db:7e:60:a6" ,14));
+		list2.add(new RowsRead("26/10/2017" ,"16:16:31", "Lenovo PB2-690Y",32.155, 34.755, 41, -69, "DIRECT-A5sfgn","fs:5f:db:7e:60:a6" ,6));
+		list2.add(new RowsRead("26/10/2017" ,"12:34:30", "Lenovo PB2-690Y",32.147, 34.752, 29, -40, "DIRECT-A5rtt","fk:1f:db:7e:09:a6" ,6));
 
 		boolean flag=true;
 		if (list1.size()==list2.size()){
