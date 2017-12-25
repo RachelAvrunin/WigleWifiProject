@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import javax.sound.sampled.Line;
 /**
  * this class only read files for the kml task
  * and contains an ArryList of RowsRead
