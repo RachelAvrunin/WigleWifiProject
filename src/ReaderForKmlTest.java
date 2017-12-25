@@ -1,9 +1,9 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 /**
- * @author Rachel
- * 
  * class to check the ReaderForKml class
+ * 
+ * @author Rachel
  */
 public class ReaderForKmlTest {
 	

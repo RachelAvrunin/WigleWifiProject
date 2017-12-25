@@ -2,20 +2,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * @author Rachel
- * 
  * the class is responsible for finding a router location of a router 
  * by an ArrayList of scans
+ * 
+ * @author Rachel
  */
 public class routerLocation {
 
 	/**
+	 * the function takes an ArrayLis of RowsRead and a mac address
+	 * and calculate the estimated location of the router 
+	 *
 	 * @param list
 	 * @param macToFind
 	 * @return
-	 * 
-	 * the function takes an ArrayLis of RowsRead and a mac address
-	 * and calculate the estimated location of the router 
 	 */
 	public  static Point3D location(ArrayList<RowsRead> list, String macToFind) {
 		ArrayList<RowsRead> hasTheMac= new ArrayList<RowsRead>();
@@ -44,10 +44,10 @@ public class routerLocation {
 	}
 
 	/**
+	 * the function get a row and calculate the weight of the line
+	 * 
 	 * @param r
 	 * @param weight
-	 * 
-	 * the function get a row and calculate the weight of the line
 	 */
 	public static void setWeight(RowsRead r, double [] weightLine){
 		weightLine[0]=1/(double)(r.Signal*r.Signal);			// 1/signal^2

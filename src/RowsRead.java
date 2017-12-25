@@ -1,11 +1,11 @@
 
 public class RowsRead implements Comparable <RowsRead> {
 	/**
-	 * @author Rachel
-	 * 
 	 * This class represents the wifi rows we read 
 	 * without filtering the 10 strongest
 	 * just one wifi in a row
+	 * 
+	 * @author Rachel
 	 */
 
 	String mac,SSID,date,time,id;
@@ -13,6 +13,8 @@ public class RowsRead implements Comparable <RowsRead> {
 	double longtitude,latitude, altitude;
 
 	/**
+	 * the constructor 
+	 * 
 	 * @param date
 	 * @param time
 	 * @param id
@@ -23,8 +25,6 @@ public class RowsRead implements Comparable <RowsRead> {
 	 * @param SSID
 	 * @param mac
 	 * @param frequncy
-	 * 
-	 * the constructor 
 	 */
 	public RowsRead( String date ,String time, String id, double latitude, double longtitude, double altitude, int Signal, String SSID,String mac , int frequncy) {
 
@@ -40,9 +40,9 @@ public class RowsRead implements Comparable <RowsRead> {
 		this.frequncy = frequncy;
 	}
 	/**
-	 * @param r
-	 * 
 	 * Copy constructor
+	 * 
+	 * @param r
 	 */
 	public RowsRead( RowsRead r) {
 
@@ -72,8 +72,11 @@ public class RowsRead implements Comparable <RowsRead> {
 		return date + "," + time + "," + id + "," + latitude + "," + longtitude + "," + altitude + "," + Signal + "," + SSID + "," + mac + "," + frequncy + System.lineSeparator();
 	}
 
+	/**
+	 * toString function with head lines
+	 */
 	/*public String toString() {
 		return "date: " + date + "," + "time: " + time + "," + "id: " + id + "," + "latitude: " + latitude + "," + "longtitude: " + longtitude + "," + "altitude: " + altitude + "," + "Signal: " + Signal + "," + "mac: " + mac + "," + "SSID: "+ SSID + "," + "frequncy: " + frequncy + System.lineSeparator();
 	}*/
-	
+
 }

@@ -3,16 +3,16 @@ import java.util.ArrayList;
 import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.Placemark;
-
-public class KmlReadWrite {
 	/**
-	 * @author Rachel
-	 * 
 	 * this class responsible for sending the FILENAME to the reader -ReaderForkml
 	 * and take the ArryList from it and create a Kml file with it
 	 * 
 	 * Source: kml created with the help of the site: https://labs.micromata.de/projects/jak/quickstart.html
+	 * 
+	 * @author Rachel
 	 */
+public class KmlReadWrite {
+
 	private static final String FILENAME = "C:\\Users\\Rachel\\Downloads\\study\\OR\\StrongestWifi.csv";
 
 	/**

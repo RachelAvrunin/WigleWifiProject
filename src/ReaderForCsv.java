@@ -9,19 +9,19 @@ import java.util.Collections;
 
 public class ReaderForCsv {
 	/**
-	 * @author Rachel
-	 * 
 	 * this class only read folders and files for the csv task
 	 * and contains an ArryList of FinalRow
+	 * 
+	 * @author Rachel
 	 */
 
 	static ArrayList<FinalRow> Lines = new ArrayList<FinalRow>();
 	private static int index=0;
 
 	/**
-	 * @param foldername
-	 * 
 	 * This function gets String folder name and send to the function check each file from the folder
+	 * 
+	 * @param foldername
 	 */
 	public static void readFolder(String foldername) {
 
@@ -40,10 +40,10 @@ public class ReaderForCsv {
 	}
 
 	/**
-	 * @param file
-	 * 
 	 * the function gets file names and check them if they are in the right format 
 	 * if they are it sends it to the function read
+	 * 
+	 * @param file
 	 */
 	public static void check(String file){
 
@@ -53,12 +53,12 @@ public class ReaderForCsv {
 	}
 
 	/***
-	 * @param filename
-	 * 
 	 * the function gets file names from the function check
 	 * read the file take only the strongest networks and return ArrayList of FinalRows
 	 * 
 	 * Source https://www.mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/
+	 * 
+	 * @param filename
 	 */
 	public static void read (String filename){
 

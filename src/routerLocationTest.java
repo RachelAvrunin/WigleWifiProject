@@ -1,11 +1,17 @@
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-
 import org.junit.Test;
 
+/**
+ * a class to check the routerLocation class
+ * 
+ * @author Rachel
+ */
 public class routerLocationTest {
 
+	/**
+	 * a function to check if the location returned is accurate for a mixed list
+	 */
 	@Test
 	public void locationTest1() {
 		ArrayList<RowsRead> list1= new ArrayList<RowsRead>();
@@ -27,6 +33,9 @@ public class routerLocationTest {
 
 	}
 
+	/**
+	 * a function to check if the location returned is accurate for a list with one match
+	 */
 	@Test
 	public void locationTest2() {
 		ArrayList<RowsRead> list1= new ArrayList<RowsRead>();

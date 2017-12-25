@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import javax.sound.sampled.Line;
+/**
+ * this class only read files for the kml task
+ * and contains an ArryList of RowsRead
+ * 
+ * @author Rachel
+ */
 public class ReaderForKml {
-	/**
-	 * @author Rachel
-	 * 
-	 * this class only read files for the kml task
-	 * and contains an ArryList of RowsRead
-	 */
+
 
 	ArrayList<RowsRead> Lines = new ArrayList<RowsRead>();
 
@@ -32,31 +34,31 @@ public class ReaderForKml {
 
 			String sCurrentLine;
 			String splitString[]=new String [46];
+			String splitDate[]=new String [2];
 
 			// read first line and ignores it
 			sCurrentLine =br.readLine();
 
 			// read all the other lines until file is empty
 			while ((sCurrentLine = br.readLine()) != null) {
-
 				splitString=sCurrentLine.split(",");
+				splitDate=splitString[0].split(" ");
+
 				for (int i = 6; i < splitString.length; i+=4) {
 
-					if(splitString[i].contains(" "))
-						splitString[i]=splitString[i].substring(1,splitString[i].length());
-
 					Lines.add(new RowsRead(
-							splitString[0],							//String date
-							splitString[1],							//String time
-							splitString[2],							//String id
-							Double.parseDouble(splitString[3]),		// double latitude
-							Double.parseDouble(splitString[4]),		//double longtitude
-							Double.parseDouble(splitString[5]),		//double altitude
-							Integer.parseInt(splitString[i]),		//int Signal
-							splitString[i+1],						//String SSID
-							splitString[i+2],						//String mac
-							Integer.parseInt(splitString[i+3]))); 	//int frequncy
+							splitDate[0],							//String date
+							splitDate[1],							//String time
+							splitString[1],							//String id
+							Double.parseDouble(splitString[2]),		// double latitude
+							Double.parseDouble(splitString[3]),		//double longtitude
+							Double.parseDouble(splitString[4]),		//double altitude
+							Integer.parseInt(splitString[i+3]),		//int Signal
+							splitString[i],							//String SSID
+							splitString[i+1],						//String mac
+							Integer.parseInt(splitString[i+2]))); 	//int frequncy
 				}
+
 			}
 		}
 
@@ -126,8 +128,6 @@ public class ReaderForKml {
 		for (int i = 0; i < ans.size(); i++) {
 			Lines.add(new RowsRead(ans.get(i)));
 		}
-
-
 
 	}
 

@@ -1,20 +1,20 @@
 public class wifi {
 	/**
-	 * @author Rachel 
-	 * 
 	 * this class represents the wifi signals inside the finalRow
+	 * 
+	 * @author Rachel 
 	 */
-	
+
 	int Signal, frequncy ;
 	String SSID, mac;
 
 	/**
+	 * the constructor
+	 * 
 	 * @param Signal
 	 * @param mac
 	 * @param SSID
 	 * @param frequncy
-	 * 
-	 * the constructor
 	 */
 	public wifi(int Signal, String mac, String SSID, int frequncy) {
 		this.Signal = Signal;
@@ -28,6 +28,6 @@ public class wifi {
 	 * toString function
 	 */
 	public String toString() {
-		return Signal + "," + SSID + "," + mac + "," + frequncy;
+		return SSID + "," + mac + "," + frequncy + "," + Signal;
 	}
 }

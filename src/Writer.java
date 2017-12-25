@@ -3,18 +3,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * @author Rachel
- * 
  * this class is responsible for writing the file
  * Source http://www.baeldung.com/java-write-to-file
+ * 
+ * @author Rachel
  */
 public class Writer { 
 
 	/**
+	 * this function gets a String and write a file
+	 * 
 	 * @param line
 	 * @throws IOException
-	 * 
-	 * this function gets a String and write a file
 	 */
 	public void csvWriter(String line) 
 			throws IOException {

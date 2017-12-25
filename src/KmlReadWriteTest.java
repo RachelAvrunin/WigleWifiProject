@@ -3,9 +3,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 /**
- * @author Rachel
- * 
- *class to check the KmlReadWrite class
+ * class to check the KmlReadWrite class
+ *
+ *  @author Rachel
  */
 public class KmlReadWriteTest {
 

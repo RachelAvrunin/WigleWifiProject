@@ -1,20 +1,22 @@
-public interface Filter {
-	boolean test (RowsRead item);
 	/**
-	 * @author Rachel
-	 * 
 	 * this interface is for filtering the ArrayList for the Kml files
 	 * it help's us by no needing a full class for each filter type  
+	 * 
+	 * @author Rachel
 	 */
+public interface Filter {
+	boolean test (RowsRead item);
+
 }
 
 class IdFilter implements Filter {
 	private String id;
 	
 	/**
-	 * @param id
 	 * this function implements the filter class 
 	 * and filter by id
+	 * 
+	 * @param id
 	 */
 	public IdFilter(String id) {
 		this.id = id;
@@ -31,9 +33,10 @@ class TimeFilter implements Filter {
 	private String date;
 
 	/**
-	 * @param time
 	 * this function implements the filter class 
 	 * and filter by time
+	 * 
+	 * @param time
 	 */
 	public TimeFilter(String date,String time) {
 		this.time = time;
@@ -49,12 +52,12 @@ class LocationFilter implements Filter {
 	private double lat, lon;
 
 	/**
+	 * this function implements the filter class 
+	 * and filter by radius of location 
+	 * 
 	 * @param lon
 	 * @param lat
 	 * @param alt
-	 *  
-	 * this function implements the filter class 
-	 * and filter by radius of location 
 	 */
 	public LocationFilter(double lat,double lon) {
 		this.lat = lat;
