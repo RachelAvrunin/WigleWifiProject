@@ -10,6 +10,20 @@ import java.util.Collections;
 public class routerLocation {
 
 	/**
+	 * the function takes a filename and a mac address
+	 * and sends the ArrayList to location to calculate the estimated location of the router 
+	 * 
+	 * @param filename
+	 * @param macToFind
+	 * @return
+	 */
+	public  static Point3D location(String filename, String macToFind) {
+		ReaderForKml r=new ReaderForKml();
+		r.readForKml(filename);
+		return location(r.Lines,macToFind);
+	}
+
+	/**
 	 * the function takes an ArrayLis of RowsRead and a mac address
 	 * and calculate the estimated location of the router 
 	 *
