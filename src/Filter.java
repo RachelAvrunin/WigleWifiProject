@@ -1,17 +1,17 @@
-	/**
-	 * this interface is for filtering the ArrayList for the Kml files
-	 * it help's us by no needing a full class for each filter type  
-	 * 
-	 * @author Rachel
-	 */
+/**
+ * this interface is for filtering the ArrayList for the Kml files
+ * it help's us by no needing a full class for each filter type  
+ * 
+ * @author Rachel
+ */
 public interface Filter {
-	boolean test (RowsRead item);
+	boolean test (FinalRow item);
 
 }
 
 class IdFilter implements Filter {
 	private String id;
-	
+
 	/**
 	 * this function implements the filter class 
 	 * and filter by id
@@ -23,7 +23,7 @@ class IdFilter implements Filter {
 	}
 
 	@Override
-	public boolean test(RowsRead item) {
+	public boolean test(FinalRow item) {
 		return item.id.equals(id);
 	}
 }
@@ -44,7 +44,7 @@ class TimeFilter implements Filter {
 	}
 
 	@Override
-	public boolean test(RowsRead item) {
+	public boolean test(FinalRow item) {
 		return((item.time.equals(time)) && (item.date.equals(date)));
 	}
 }
@@ -65,8 +65,8 @@ class LocationFilter implements Filter {
 	}
 
 	@Override
-	public boolean test(RowsRead item) {
-		double dist=Math.sqrt(Math.pow(item.latitude-lat, 2)+Math.pow(item.longtitude-lon, 2));
+	public boolean test(FinalRow item) {
+		double dist=Math.sqrt(Math.pow(item.p.latitude-lat, 2)+Math.pow(item.p.longtitude-lon, 2));
 		return (dist<0.005);
 	}
 }

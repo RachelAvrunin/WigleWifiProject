@@ -31,10 +31,10 @@ public class routerLocation {
 	 * @param macToFind
 	 * @return
 	 */
-	public  static Point3D location(ArrayList<RowsRead> list, String macToFind) {
-		ArrayList<RowsRead> hasTheMac= new ArrayList<RowsRead>();
+	public  static Point3D location(ArrayList<FinalRow> list, String macToFind) {
+		ArrayList<FinalRow> hasTheMac= new ArrayList<FinalRow>();
 		for (int i = 0; i <list.size(); i++) 
-			if (list.get(i).mac.equals(macToFind))
+			if (list.get(i).wifis.get(0).mac.equals(macToFind))
 				hasTheMac.add(list.get(i));
 		Collections.sort(hasTheMac);
 
@@ -63,10 +63,10 @@ public class routerLocation {
 	 * @param r
 	 * @param weight
 	 */
-	public static void setWeight(RowsRead r, double [] weightLine){
-		weightLine[0]=1/(double)(r.Signal*r.Signal);			// 1/signal^2
-		weightLine[1]=r.longtitude*weightLine[0];		// lon*weight
-		weightLine[2]=r.latitude*weightLine[0];			// lat*weight
-		weightLine[3]=r.altitude*weightLine[0];			// alt*weight
+	public static void setWeight(FinalRow r, double [] weightLine){
+		weightLine[0]=1/(double)(r.wifis.get(0).Signal*r.wifis.get(0).Signal);			// 1/signal^2
+		weightLine[1]=r.p.longtitude*weightLine[0];		// lon*weight
+		weightLine[2]=r.p.latitude*weightLine[0];			// lat*weight
+		weightLine[3]=r.p.altitude*weightLine[0];			// alt*weight
 	}
 }

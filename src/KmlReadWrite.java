@@ -45,10 +45,10 @@ public class KmlReadWrite {
 
 				Placemark pl = document.createAndAddPlacemark();
 				pl.createAndSetTimeStamp().withWhen(str+"Z");
-				pl.withName(k.Lines.get(i).SSID).withOpen(Boolean.TRUE)
-				.withDescription("id= "+k.Lines.get(i).id+", signal= "+k.Lines.get(i).Signal+", frequncy= "+k.Lines.get(i).frequncy)
-				.withAddress(k.Lines.get(i).mac).createAndSetPoint()
-				.addToCoordinates( k.Lines.get(i).longtitude,k.Lines.get(i).latitude,k.Lines.get(i).altitude);
+				pl.withName(k.Lines.get(i).wifis.get(0).SSID).withOpen(Boolean.TRUE)
+				.withDescription("id= "+k.Lines.get(i).id+", signal= "+k.Lines.get(i).wifis.get(0).Signal+", frequncy= "+k.Lines.get(i).wifis.get(0).frequncy)
+				.withAddress(k.Lines.get(i).wifis.get(0).mac).createAndSetPoint()
+				.addToCoordinates( k.Lines.get(i).p.longtitude,k.Lines.get(i).p.latitude,k.Lines.get(i).p.altitude);
 			}
 
 			kml.marshal(new File("C:\\Users\\Rachel\\Downloads\\study\\OR\\WifiPlaces.kml"));
@@ -62,7 +62,7 @@ public class KmlReadWrite {
 	 * 
 	 * this function gets the ArrayList and uses the MyConsole to read an 
 	 */
-	private static void activateFilter(ArrayList<RowsRead> list) {
+	private static void activateFilter(ArrayList<FinalRow> list) {
 		int num=MyConsole.readInt("Insert a number for filtering: \n0 for no filter, 1 for Time, 2 for Id and 3 for Location radius \n");
 		//String field;
 		//double lon, lat,alt;
@@ -71,7 +71,7 @@ public class KmlReadWrite {
 
 		switch (num){
 		case 0:
-			System.out.println("no fiolter has chosen");
+			System.out.println("no filter has chosen");
 			break;
 		case 1:
 			//field=MyConsole.readString("Insert the time you want");
@@ -107,16 +107,16 @@ public class KmlReadWrite {
 	 * this function send to the filter class to filter by the filter sent to the function
 	 * and return the same list filtered 
 	 */
-	public static void filter(ArrayList<RowsRead> list, Filter cond){
-		ArrayList<RowsRead> ans = new ArrayList<>();
-		for(RowsRead r : list) {
+	public static void filter(ArrayList<FinalRow> list, Filter cond){
+		ArrayList<FinalRow> ans = new ArrayList<>();
+		for(FinalRow r : list) {
 			if(cond.test(r)) ans.add(r);
 		}
 
 		while (!list.isEmpty()) 
 			list.remove(0);
 		for (int i = 0; i < ans.size(); i++) {
-			list.add(new RowsRead(ans.get(i)));
+			list.add(new FinalRow(ans.get(i)));
 		}
 	}
 

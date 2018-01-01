@@ -14,7 +14,7 @@ import java.util.Comparator;
 public class ReaderForKml {
 
 
-	ArrayList<RowsRead> Lines = new ArrayList<RowsRead>();
+	ArrayList<FinalRow> Lines = new ArrayList<FinalRow>();
 
 	/**
 	 * @param filename
@@ -45,7 +45,7 @@ public class ReaderForKml {
 
 				for (int i = 6; i < splitString.length; i+=4) {
 
-					Lines.add(new RowsRead(
+					Lines.add(new FinalRow(
 							splitDate[0],							//String date
 							splitDate[1],							//String time
 							splitString[1],							//String id
@@ -90,25 +90,25 @@ public class ReaderForKml {
 	 * this function filter the SSID we have a few times by the strongest
 	 */
 	public void deleteEquals(){ 
-		ArrayList<RowsRead> temp = new ArrayList<RowsRead>();
-		ArrayList<RowsRead> ans = new ArrayList<RowsRead>();
+		ArrayList<FinalRow> temp = new ArrayList<FinalRow>();
+		ArrayList<FinalRow> ans = new ArrayList<FinalRow>();
 		boolean flag=true;
 
 		//Sort ArrayList by SSID
-		Collections.sort(Lines,new Comparator<RowsRead>() {
+		Collections.sort(Lines,new Comparator<FinalRow>() {
 
 			@Override
-			public int compare(RowsRead o1, RowsRead o2) {
-				return o2.SSID.compareTo(o1.SSID);
+			public int compare(FinalRow o1, FinalRow o2) {
+				return o2.wifis.get(0).SSID.compareTo(o1.wifis.get(0).SSID);
 			}
 		});
 
 		String TempSSID;
 		int index=0;
 		while (!Lines.isEmpty()){
-			TempSSID=Lines.get(index).SSID;
-			while (flag && TempSSID.equals(Lines.get(index).SSID)){
-				temp.add(new RowsRead(Lines.get(index)));
+			TempSSID=Lines.get(index).wifis.get(0).SSID;
+			while (flag && TempSSID.equals(Lines.get(index).wifis.get(0).SSID)){
+				temp.add(new FinalRow(Lines.get(index)));
 				index++;
 				if (index>=Lines.size()){
 					flag=false;
@@ -118,14 +118,14 @@ public class ReaderForKml {
 				Lines.remove(0);
 
 			Collections.sort(temp);
-			ans.add(new RowsRead(temp.get(0)));
+			ans.add(new FinalRow(temp.get(0)));
 			for (int i = 0; i <= temp.size(); i++) 
 				temp.remove(0);
 			index=0;
 
 		}
 		for (int i = 0; i < ans.size(); i++) {
-			Lines.add(new RowsRead(ans.get(i)));
+			Lines.add(new FinalRow(ans.get(i)));
 		}
 
 	}

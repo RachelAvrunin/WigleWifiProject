@@ -66,7 +66,7 @@ public class ReaderForCsv {
 		FileReader fr = null;
 
 		try {
-			ArrayList<RowsRead> temp = new ArrayList<RowsRead>();
+			ArrayList<FinalRow> temp = new ArrayList<FinalRow>();
 
 			fr = new FileReader(filename);
 			br = new BufferedReader(fr);
@@ -99,7 +99,7 @@ public class ReaderForCsv {
 				while (tempTime.equals(splitString[3]) && sCurrentLine!=null) {
 
 					if (splitString[10].equals("WIFI")){	// if the line is wifi & not gsm add line
-						temp.add(new RowsRead(
+						temp.add(new FinalRow(
 								splitDate[0],							//String date
 								splitDate[1],							//String time
 								id,										//String id
@@ -126,16 +126,16 @@ public class ReaderForCsv {
 							temp.get(0).date,				//String date
 							temp.get(0).time,				//String time
 							temp.get(0).id,					//String id
-							temp.get(0).latitude,			// double latitude
-							temp.get(0).longtitude,			//double longtitude
-							temp.get(0).altitude));			//double altitude
+							temp.get(0).p.latitude,			// double latitude
+							temp.get(0).p.longtitude,			//double longtitude
+							temp.get(0).p.altitude));			//double altitude
 
 					for (int i = 0 ; i < Math.min(10,temp.size()) ; i++) 
 						Lines.get(index).addline(
-								temp.get(i).Signal,			//int Signal
-								temp.get(i).mac,			//String mac
-								temp.get(i).SSID,			//String SSID
-								temp.get(i).frequncy);		//int frequncy
+								temp.get(i).wifis.get(0).Signal,			//int Signal
+								temp.get(i).wifis.get(0).mac,			//String mac
+								temp.get(i).wifis.get(0).SSID,			//String SSID
+								temp.get(i).wifis.get(0).frequncy);		//int frequncy
 					index++;
 				}
 				while (!temp.isEmpty()) 
