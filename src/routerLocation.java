@@ -18,8 +18,8 @@ public class routerLocation {
 	 * @return
 	 */
 	public  static Point3D location(String filename, String macToFind) {
-		ReaderForKml r=new ReaderForKml();
-		r.readForKml(filename);
+		CombinedFileReader r=new CombinedFileReader();
+		r.readAndSplit(filename);
 		return location(r.Lines,macToFind);
 	}
 
@@ -31,8 +31,8 @@ public class routerLocation {
 	 * @param macToFind
 	 * @return
 	 */
-	public  static Point3D location(ArrayList<FinalRow> list, String macToFind) {
-		ArrayList<FinalRow> hasTheMac= new ArrayList<FinalRow>();
+	public  static Point3D location(ArrayList<WifiScan> list, String macToFind) {
+		ArrayList<WifiScan> hasTheMac= new ArrayList<WifiScan>();
 		for (int i = 0; i <list.size(); i++) 
 			if (list.get(i).wifis.get(0).mac.equals(macToFind))
 				hasTheMac.add(list.get(i));
@@ -63,7 +63,7 @@ public class routerLocation {
 	 * @param r
 	 * @param weight
 	 */
-	public static void setWeight(FinalRow r, double [] weightLine){
+	public static void setWeight(WifiScan r, double [] weightLine){
 		weightLine[0]=1/(double)(r.wifis.get(0).Signal*r.wifis.get(0).Signal);			// 1/signal^2
 		weightLine[1]=r.p.longtitude*weightLine[0];		// lon*weight
 		weightLine[2]=r.p.latitude*weightLine[0];			// lat*weight

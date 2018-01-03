@@ -22,9 +22,9 @@ public class KmlReadWrite {
 	 */
 	public static void readWrite () {
 
-		ReaderForKml k=new ReaderForKml();
+		CombinedFileReader k=new CombinedFileReader();
 
-		k.readForKml(FILENAME);
+		k.readAndSplit(FILENAME);
 
 		activateFilter(k.Lines);
 
@@ -57,12 +57,13 @@ public class KmlReadWrite {
 			e.printStackTrace();
 		} 
 	}
+	
 	/**
 	 * @param list
 	 * 
 	 * this function gets the ArrayList and uses the MyConsole to read an 
 	 */
-	private static void activateFilter(ArrayList<FinalRow> list) {
+	private static void activateFilter(ArrayList<WifiScan> list) {
 		int num=MyConsole.readInt("Insert a number for filtering: \n0 for no filter, 1 for Time, 2 for Id and 3 for Location radius \n");
 		//String field;
 		//double lon, lat,alt;
@@ -107,16 +108,16 @@ public class KmlReadWrite {
 	 * this function send to the filter class to filter by the filter sent to the function
 	 * and return the same list filtered 
 	 */
-	public static void filter(ArrayList<FinalRow> list, Filter cond){
-		ArrayList<FinalRow> ans = new ArrayList<>();
-		for(FinalRow r : list) {
+	public static void filter(ArrayList<WifiScan> list, Filter cond){
+		ArrayList<WifiScan> ans = new ArrayList<>();
+		for(WifiScan r : list) {
 			if(cond.test(r)) ans.add(r);
 		}
 
 		while (!list.isEmpty()) 
 			list.remove(0);
 		for (int i = 0; i < ans.size(); i++) {
-			list.add(new FinalRow(ans.get(i)));
+			list.add(new WifiScan(ans.get(i)));
 		}
 	}
 

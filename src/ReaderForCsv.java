@@ -15,7 +15,7 @@ public class ReaderForCsv {
 	 * @author Rachel
 	 */
 
-	static ArrayList<FinalRow> Lines = new ArrayList<FinalRow>();
+	static ArrayList<WifiScan> Lines = new ArrayList<WifiScan>();
 	private static int index=0;
 
 	/**
@@ -66,7 +66,7 @@ public class ReaderForCsv {
 		FileReader fr = null;
 
 		try {
-			ArrayList<FinalRow> temp = new ArrayList<FinalRow>();
+			ArrayList<WifiScan> temp = new ArrayList<WifiScan>();
 
 			fr = new FileReader(filename);
 			br = new BufferedReader(fr);
@@ -99,7 +99,7 @@ public class ReaderForCsv {
 				while (tempTime.equals(splitString[3]) && sCurrentLine!=null) {
 
 					if (splitString[10].equals("WIFI")){	// if the line is wifi & not gsm add line
-						temp.add(new FinalRow(
+						temp.add(new WifiScan(
 								splitDate[0],							//String date
 								splitDate[1],							//String time
 								id,										//String id
@@ -122,7 +122,7 @@ public class ReaderForCsv {
 				Collections.sort(temp);
 
 				if  (!temp.isEmpty()){
-					Lines.add(new FinalRow(
+					Lines.add(new WifiScan(
 							temp.get(0).date,				//String date
 							temp.get(0).time,				//String time
 							temp.get(0).id,					//String id

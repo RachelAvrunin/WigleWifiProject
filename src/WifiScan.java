@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class FinalRow implements Comparable <FinalRow> {
+public class WifiScan implements Comparable <WifiScan> {
 	/**
 	 *This class represents the final wifi rows we read 
 	 *after filtering the 10 strongest
@@ -23,7 +23,7 @@ public class FinalRow implements Comparable <FinalRow> {
 	 * @param longtitude
 	 * @param altitude
 	 */
-	public FinalRow( String date,String time, String id, double latitude, double longtitude, double altitude ) {
+	public WifiScan( String date,String time, String id, double latitude, double longtitude, double altitude ) {
 
 		this.date = date;
 		this.time = time;
@@ -45,7 +45,7 @@ public class FinalRow implements Comparable <FinalRow> {
 	 * @param mac
 	 * @param frequncy
 	 */
-	public FinalRow( String date ,String time, String id, double latitude, double longtitude, double altitude, int Signal, String SSID,String mac , int frequncy) {
+	public WifiScan( String date ,String time, String id, double latitude, double longtitude, double altitude, int Signal, String SSID,String mac , int frequncy) {
 
 		this.date = date;
 		this.time = time;
@@ -55,11 +55,25 @@ public class FinalRow implements Comparable <FinalRow> {
 
 	}
 	/**
+	 * the constructor without a location
+	 * 
+	 * @param date
+	 * @param time
+	 * @param id
+	 */
+	public WifiScan( String date ,String time, String id) {
+
+		this.date = date;
+		this.time = time;
+		this.id = id;
+	}
+
+	/**
 	 * Copy constructor
 	 * 
 	 * @param r
 	 */
-	public FinalRow( FinalRow r) {
+	public WifiScan( WifiScan r) {
 
 		this.date = r.date;
 		this.time = r.time;
@@ -81,12 +95,31 @@ public class FinalRow implements Comparable <FinalRow> {
 		this.wifis.add(new wifi(Signal,mac,SSID,frequncy));
 		numOfScans++;
 	}
+	/**
+	 * sets the location for a line without location
+	 * 
+	 * @param latitude
+	 * @param longtitude
+	 * @param altitude
+	 */
+	public void setLocation(double latitude, double longtitude, double altitude) {
+		this.p = new Point3D(longtitude, latitude, altitude);
 
+	}
+	
+	/**
+	 * sets the location for a line without location with a point 
+	 * @param p
+	 */
+	public void setLocation(Point3D p) {
+		this.p = new Point3D(p.longtitude, p.latitude, p.altitude);
 
+	}
+	
 	/**
 	 * this function is to use the collection sort in the ArrayList
 	 */
-	public int compareTo(FinalRow a) {
+	public int compareTo(WifiScan a) {
 		return (int)a.wifis.get(0).Signal - this.wifis.get(0).Signal;
 	}
 
@@ -97,7 +130,6 @@ public class FinalRow implements Comparable <FinalRow> {
 	 */
 	public String toString() {
 		String ans= date + " " + time + "," + id + "," + p + "," + numOfScans + "," + wifis.toString();
-		//System.out.println(ans);
 		for (int i = 0; i < ans.length(); i++){
 			if (ans.charAt(i)=='[')
 				ans=ans.substring(0, i) + ans.substring(i+1,ans.length()); 

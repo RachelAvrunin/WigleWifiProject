@@ -5,7 +5,7 @@
  * @author Rachel
  */
 public interface Filter {
-	boolean test (FinalRow item);
+	boolean test (WifiScan item);
 
 }
 
@@ -23,7 +23,7 @@ class IdFilter implements Filter {
 	}
 
 	@Override
-	public boolean test(FinalRow item) {
+	public boolean test(WifiScan item) {
 		return item.id.equals(id);
 	}
 }
@@ -44,7 +44,7 @@ class TimeFilter implements Filter {
 	}
 
 	@Override
-	public boolean test(FinalRow item) {
+	public boolean test(WifiScan item) {
 		return((item.time.equals(time)) && (item.date.equals(date)));
 	}
 }
@@ -65,7 +65,7 @@ class LocationFilter implements Filter {
 	}
 
 	@Override
-	public boolean test(FinalRow item) {
+	public boolean test(WifiScan item) {
 		double dist=Math.sqrt(Math.pow(item.p.latitude-lat, 2)+Math.pow(item.p.longtitude-lon, 2));
 		return (dist<0.005);
 	}
