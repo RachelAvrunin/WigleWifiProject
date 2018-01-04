@@ -105,7 +105,7 @@ public class CombinedFileReader {
 			String splitString[]=new String [46];
 			String splitDate[]=new String [2];
 			int size=-1;
-
+			int len=0;
 
 			// read first line and ignores it
 			sCurrentLine =br.readLine();
@@ -120,12 +120,16 @@ public class CombinedFileReader {
 							splitDate[1],							//String time
 							splitString[1]));						//String id
 					size++;
-					for (int i = 0; i < Integer.parseInt(splitString[5]); i++) {
-						Lines.get(size).addline(Integer.parseInt(splitString[i+3]),	//int Signal
-								splitString[i+1],									//String mac 
-								splitString[i],										//String SSID
-								Integer.parseInt(splitString[i+2])); 				//int frequncy
-					}
+
+					for (int i = 6; i < splitString.length; i+=4)
+						if(len<Integer.parseInt(splitString[5])) {
+							Lines.get(size).addline(Integer.parseInt(splitString[i+3]),	//int Signal
+									splitString[i+1],									//String mac 
+									splitString[i],										//String SSID
+									Integer.parseInt(splitString[i+2])); 				//int frequncy
+							len++;
+						}
+					len=0;
 
 				}
 				else{	Lines.add(new WifiScan(
@@ -136,13 +140,16 @@ public class CombinedFileReader {
 						Double.parseDouble(splitString[3]),		//double longtitude
 						Double.parseDouble(splitString[4])));	//double altitude
 				size++;
-				for (int i = 0; i < Integer.parseInt(splitString[5]); i++) {
+				for (int i = 6; i < splitString.length; i+=4)
+					if(len<Integer.parseInt(splitString[5])) {
 					Lines.get(size).addline(Integer.parseInt(splitString[i+3]),	//int Signal
 							splitString[i+1],									//String mac 
 							splitString[i],										//String SSID
 							Integer.parseInt(splitString[i+2])); 				//int frequncy
+				len++;
+					}
+				len=0;
 				}
-}
 
 
 			}
