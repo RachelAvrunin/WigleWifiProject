@@ -18,7 +18,7 @@ public class MyLocaion {
 	 * @param filenameToFix
 	 * @param k
 	 */
-	public  static void location(String filename,String filenameToFix) {
+	public  static ArrayList<WifiScan> location(String filename,String filenameToFix) {
 		CombinedFileReader list=new CombinedFileReader();
 		list.readAndNotSplit(filename);
 
@@ -30,10 +30,10 @@ public class MyLocaion {
 
 		Point3D p;
 		for (int i = 0; i < listToFix.Lines.size(); i++) {
-			p=location(list.Lines, listToFix.Lines.get(i), listForMac.Lines);;
+			p=location(list.Lines, listToFix.Lines.get(i), listForMac.Lines);
 			listToFix.Lines.get(i).setLocation(p);
 		}
-
+		return listToFix.Lines;
 	}
 	/**
 	 * the function takes an ArrayList of FinalRow
@@ -43,17 +43,20 @@ public class MyLocaion {
 	 * @return
 	 */
 	public  static Point3D location(ArrayList<WifiScan> list, WifiScan f,ArrayList<WifiScan> listForMac) {
-		WifiScan [] best=new WifiScan [4];
-		double [] piOfBest=new double[4];
-		double piOfLine=1;
-		double weight=0;
-		double dif=0;
-		boolean flag=false;
-
-		for (int lineRead_i = 0; lineRead_i < list.size(); lineRead_i++) {
-			for (int macSerched = 0; lineRead_i < list.get(lineRead_i).wifis.size(); macSerched++) {
-				for (int macOfLinef = 0; macOfLinef < f.wifis.size(); macOfLinef++) {
-					if (list.get(lineRead_i).wifis.get(macSerched).mac.equals(f.wifis.get(macOfLinef).mac)){
+		WifiScan [] best = new WifiScan [4];
+		double [] piOfBest = new double[4];
+		double piOfLine = 1;
+		double weight = 0;
+		double dif = 0;
+		boolean flag = false;
+		int listSize, wifiSize, fWifiSize;
+		listSize = list.size();
+		fWifiSize = f.wifis.size();
+		for (int lineRead_i = 0; lineRead_i < listSize; lineRead_i++) {
+			wifiSize=list.get(lineRead_i).wifis.size();
+			for (int macSearched = 0; macSearched < wifiSize; macSearched++) {
+				for (int macOfLinef = 0; macOfLinef < fWifiSize; macOfLinef++) {
+					if (list.get(lineRead_i).wifis.get(macSearched).mac.equals(f.wifis.get(macOfLinef).mac)){
 						dif=Math.max(Math.abs(f.wifis.get(macOfLinef).Signal),MIN_DIFF);			
 						flag=true;
 						weight=NORM/(Math.pow(dif,SIG_DIFF)*Math.pow(f.wifis.get(macOfLinef).Signal,POWER));
@@ -63,8 +66,8 @@ public class MyLocaion {
 					weight=NORM/(Math.pow(DIFF_NO_SIG,SIG_DIFF)*Math.pow(NO_SIG,POWER));
 				piOfLine=piOfLine*weight;
 				flag=false;
-			}
 
+			}
 			if (piOfBest[0]<piOfLine){
 				piOfBest[3]=piOfBest[2];
 				best[3]=best[2];
@@ -97,23 +100,30 @@ public class MyLocaion {
 							piOfBest[3]=piOfLine;
 							best[3]=list.get(lineRead_i);
 						}
+			piOfLine=1;
 		}
 
-		Point3D[] points= new Point3D[f.wifis.size()];
-		for (int i = 0; i < f.wifis.size(); i++) 
-			points[i]=routerLocation.location(listForMac, f.wifis.get(i).mac);
+		Point3D[] points= new Point3D[fWifiSize];
+		Point3D tempPoint= new Point3D (0,0,0);
+		int index=0;
+		for (int i = 0; i < fWifiSize; i++) {
+			tempPoint=routerLocation.location(listForMac, f.wifis.get(i).mac);
+			if (tempPoint!=null)
+				points[index++]=tempPoint;
+		}
 
-		Point3D[] pointsWeight= new Point3D[4];
-		for (int i = 0; i < pointsWeight.length; i++)
+
+		Point3D[] pointsWeight= new Point3D[index];
+		for (int i = 0; i < pointsWeight.length ; i++)
 			pointsWeight[i]=new Point3D(points[i].longtitude*piOfBest[i], points[i].latitude*piOfBest[i],points[i].altitude*piOfBest[i]);
-
 		double longtitude = 0, latitude = 0, altitude = 0 ,piSum=0;
-		for (int i = 0; i < pointsWeight.length; i++){
-			longtitude+=pointsWeight[i].longtitude;
-			latitude+=pointsWeight[i].latitude;
-			altitude+=pointsWeight[i].altitude;
-			piSum+=piOfBest[i];
-		}
+		for (int i = 0; i < pointsWeight.length; i++)
+			if(pointsWeight[i]!=null){
+				longtitude+=pointsWeight[i].longtitude;
+				latitude+=pointsWeight[i].latitude;
+				altitude+=pointsWeight[i].altitude;
+				piSum+=piOfBest[i];
+			}
 
 		Point3D p=new Point3D(longtitude/piSum, latitude/piSum, altitude/piSum);
 		return p;
