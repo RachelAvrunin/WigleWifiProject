@@ -25,7 +25,6 @@ public class CombinedFileReader {
 	public void readAndSplit (String filename){
 		BufferedReader br = null;
 		FileReader fr = null;
-
 		try {
 
 			fr = new FileReader(filename);
@@ -177,8 +176,6 @@ public class CombinedFileReader {
 			}
 
 		}
-		for (int i = 0; i < Lines.size(); i++) 
-			System.out.println(Lines.get(i));
 	}
 
 	/**
