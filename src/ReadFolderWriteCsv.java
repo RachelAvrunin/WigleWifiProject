@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ReadFolderWriteCsv {
 
@@ -21,6 +22,31 @@ public class ReadFolderWriteCsv {
 		ReaderForCsv r=new ReaderForCsv();
 		Writer d = new Writer();
 		
+		// call the read function
+		r.readFolder(FOLDERNAME);
+
+		//turn to String
+		String stringForFile = turnToString(r.Lines);
+
+		// send to writer
+		try {
+
+			d.csvWriter(stringForFile); 
+		}
+		catch (IOException e) {
+
+			e.printStackTrace();
+
+		} 
+
+	}
+/**
+ * the function gets an ArrayList of WifiScan and turns it to a String
+ * 
+ * @param lines
+ * @return
+ */
+	private static  String turnToString(ArrayList<WifiScan> lines) {
 		// insert headlines
 		String stringForFile= "Date,Id,Latitude,Longtitude,Altitude,WiFi networks,"
 				+ "SSID1,Mac1,frequncy1,Signal1,"
@@ -35,24 +61,11 @@ public class ReadFolderWriteCsv {
 				+ "SSID10,Mac10,frequncy10,Signal10,"
 				+ System.lineSeparator();
 
-		// call the read function
-		r.readFolder(FOLDERNAME);
-
-		// insert the ArrayList to a String
-		for (int i = 0; i < r.Lines.size(); i++)
-			stringForFile=stringForFile+r.Lines.get(i).toString();
-
-		// send to writer
-		try {
-
-			d.csvWriter(stringForFile); 
-		}
-		catch (IOException e) {
-
-			e.printStackTrace();
-
-		} 
-
+		// insert the ArrayList to the String
+		for (int i = 0; i < lines.size(); i++)
+			stringForFile=stringForFile+lines.get(i).toString();
+		
+		return stringForFile;
 	}
 
 }
