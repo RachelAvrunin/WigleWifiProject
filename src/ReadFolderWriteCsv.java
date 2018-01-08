@@ -40,13 +40,14 @@ public class ReadFolderWriteCsv {
 		} 
 
 	}
+	
 /**
  * the function gets an ArrayList of WifiScan and turns it to a String
- * 
+ * exception
  * @param lines
  * @return
  */
-	private static  String turnToString(ArrayList<WifiScan> lines) {
+	public static  String turnToString(ArrayList<WifiScan> lines) {
 		// insert headlines
 		String stringForFile= "Date,Id,Latitude,Longtitude,Altitude,WiFi networks,"
 				+ "SSID1,Mac1,frequncy1,Signal1,"
