@@ -42,7 +42,7 @@ public class CombinedFileReader {
 				splitString=sCurrentLine.split(",");
 				splitDate=splitString[0].split(" ");
 				if (splitString[2].equals("?") || splitString[3].equals("?") || splitString[4].equals("?")){
-					for (int i = 6; i < splitString.length; i+=4) {
+					for (int i = 6; i < (Integer.parseInt(splitString[5])*4)+4; i+=4) {
 						Lines.add(new WifiScan(
 								splitDate[0],							//String date
 								splitDate[1],							//String time
@@ -55,7 +55,7 @@ public class CombinedFileReader {
 				}
 				else{
 					
-					for (int i = 6; i < splitString.length; i+=4) {
+					for (int i = 6; i < (Integer.parseInt(splitString[5])*4)+4 ; i+=4) {
 						Lines.add(new WifiScan(
 								splitDate[0],							//String date
 								splitDate[1],							//String time
