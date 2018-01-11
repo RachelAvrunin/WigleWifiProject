@@ -11,7 +11,7 @@ public class MyLocaion {
 	final static double  SIG_DIFF = 0.4;
 	/**
 	 * the function takes a filename of combined file
-	 * and a demedged  filename of combined file sends to read the file 
+	 * and a damaged  filename of combined file sends to read the file 
 	 * send it one by one to find the location missing
 	 * and calculate the estimated location of me
 	 * 
