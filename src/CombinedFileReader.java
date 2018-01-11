@@ -179,7 +179,7 @@ public class CombinedFileReader {
 	}
 
 	/**
-	 * this function filter the SSID we have a few times by the strongest
+	 * this function filter the mac we have a few times by the strongest
 	 */
 	public void deleteEquals(){ 
 		ArrayList<WifiScan> temp = new ArrayList<WifiScan>();
@@ -191,7 +191,7 @@ public class CombinedFileReader {
 
 			@Override
 			public int compare(WifiScan o1, WifiScan o2) {
-				return o2.wifis.get(0).SSID.compareTo(o1.wifis.get(0).SSID);
+				return o2.wifis.get(0).mac.compareTo(o1.wifis.get(0).mac);
 			}
 		});
 
@@ -199,7 +199,7 @@ public class CombinedFileReader {
 		int index=0;
 		while (!Lines.isEmpty()){
 			TempSSID=Lines.get(index).wifis.get(0).SSID;
-			while (flag && TempSSID.equals(Lines.get(index).wifis.get(0).SSID)){
+			while (flag && TempSSID.equals(Lines.get(index).wifis.get(0).mac)){
 				temp.add(new WifiScan(Lines.get(index)));
 				index++;
 				if (index>=Lines.size()){
