@@ -94,7 +94,7 @@ public class WifiScan implements Comparable <WifiScan> {
 		this.date = r.date;
 		this.time = r.time;
 		this.id = r.id;	
-		if (p!=null)
+		if (r.p!=null)
 			this.p = new Point3D(r.p.longtitude, r.p.latitude, r.p.altitude);
 		addline (r.wifis.get(0).Signal, r.wifis.get(0).mac, r.wifis.get(0).SSID, r.wifis.get(0).frequncy);	
 	}
