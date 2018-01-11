@@ -14,12 +14,13 @@ public class MyLocaion {
 	 * and a damaged  filename of combined file sends to read the file 
 	 * send it one by one to find the location missing
 	 * and calculate the estimated location of me
+	 * and then send the whole file to the writer
 	 * 
 	 * @param filename
 	 * @param filenameToFix
 	 * @param k
 	 */
-	public  static void location(String filename,String filenameToFix) {
+	public  static void location(String filename,String filenameToFix,int k) {
 		Writer d = new Writer();
 
 		CombinedFileReader list=new CombinedFileReader();
@@ -28,18 +29,15 @@ public class MyLocaion {
 		CombinedFileReader listToFix=new CombinedFileReader();
 		listToFix.readAndNotSplit(filenameToFix);
 
-		CombinedFileReader listForMac=new CombinedFileReader();
-		listForMac.readAndNotSplit(filename);
-
 		Point3D p;
 		for (int i = 0; i < listToFix.Lines.size(); i++) {
-			p=location(list.Lines, listToFix.Lines.get(i), listForMac.Lines);
+			p=location(list.Lines , listToFix.Lines.get(i) , k);
 			listToFix.Lines.get(i).setLocation(p);
 		}
 		String s = ReadFolderWriteCsv.turnToString(listToFix.Lines);
 		try {
 
-			d.csvWriter(s,"C:\\Users\\Rachel\\Downloads\\study\\OR\\fixedCsv.csv"); 
+			d.csvWriter(s,"C:\\Users\\Rachel\\Downloads\\study\\OR\\fixedCsvAlgo2.csv"); 
 		}
 		catch (IOException e) {
 
@@ -55,12 +53,13 @@ public class MyLocaion {
 	 * @param list
 	 * @return
 	 */
-	public  static Point3D location(ArrayList<WifiScan> list, WifiScan f,ArrayList<WifiScan> listForMac) {
-		WifiScan [] best = new WifiScan [4];
-		double [] piOfBest = new double[4];
+	public  static Point3D location(ArrayList<WifiScan> list , WifiScan f , int k) {
+		WifiScan [] best = new WifiScan [k];
+		double [] piOfBest = new double[k];
 		double piOfLine = 1;
 		double weight = 0;
 		double dif = 0;
+		int index =0;
 		boolean flag = false;
 		int listSize, wifiSize, fWifiSize;
 		listSize = list.size();
@@ -79,64 +78,44 @@ public class MyLocaion {
 					weight=NORM/(Math.pow(DIFF_NO_SIG,SIG_DIFF)*Math.pow(NO_SIG,POWER));
 				piOfLine=piOfLine*weight;
 				flag=false;
-
 			}
-			if (piOfBest[0]<piOfLine){
-				piOfBest[3]=piOfBest[2];
-				best[3]=best[2];
-				piOfBest[2]=piOfBest[1];
-				best[2]=best[1];
-				piOfBest[1]=piOfBest[0];
-				best[1]=best[0];
-				piOfBest[0]=piOfLine;
-				best[0]=list.get(lineRead_i);
-			}
-			else
-				if (piOfBest[1]<piOfLine){
-					piOfBest[3]=piOfBest[2];
-					best[3]=best[2];
-					piOfBest[2]=piOfBest[1];
-					best[2]=best[1];
-					piOfBest[1]=piOfLine;
-					best[1]=list.get(lineRead_i);
 
+			index=0;
+			int num=Math.max(1, k-1);
+
+			while (index<k)
+				if (piOfBest[index]<piOfLine){
+					if (index<num)
+						for (int i = num; i > index; i--) {
+							piOfBest[i]=piOfBest[i-1];
+							best[i]=best[i--];
+						}
+					piOfBest[index]=piOfLine;
+					best[index]=list.get(lineRead_i);
+					index=k;
 				}
 				else
-					if (piOfBest[2]<piOfLine){
-						piOfBest[3]=piOfBest[2];
-						best[3]=best[2];
-						piOfBest[2]=piOfLine;
-						best[2]=list.get(lineRead_i);
-					}
-					else
-						if (piOfBest[3]<piOfLine){
-							piOfBest[3]=piOfLine;
-							best[3]=list.get(lineRead_i);
-						}
+					index++;
 			piOfLine=1;
 		}
 
-		Point3D[] points= new Point3D[fWifiSize];
-		Point3D tempPoint= new Point3D (0,0,0);
-		int index=0;
-		for (int i = 0; i < fWifiSize; i++) {
-			tempPoint=routerLocation.location(listForMac, f.wifis.get(i).mac);
-			if (tempPoint!=null)
-				points[index++]=tempPoint;
+		index=0;
+		for (int i = 0 ; i < k ; i++) {
+			if (best[i]!=null)
+				index++;
+		}
+		Point3D[] points= new Point3D[index];
+		for (int i = 0 ; i < index ; i++) {
+			points[i]=new Point3D(best[i].p.longtitude*piOfBest[i], best[i].p.latitude*piOfBest[i], best[i].p.altitude*piOfBest[i]);
 		}
 
-
-		Point3D[] pointsWeight= new Point3D[index];
-		for (int i = 0; i < pointsWeight.length ; i++)
-			pointsWeight[i]=new Point3D(points[i].longtitude*piOfBest[i], points[i].latitude*piOfBest[i],points[i].altitude*piOfBest[i]);
 		double longtitude = 0, latitude = 0, altitude = 0 ,piSum=0;
-		for (int i = 0; i < pointsWeight.length; i++)
-			if(pointsWeight[i]!=null){
-				longtitude+=pointsWeight[i].longtitude;
-				latitude+=pointsWeight[i].latitude;
-				altitude+=pointsWeight[i].altitude;
-				piSum+=piOfBest[i];
-			}
+		for (int i = 0; i < index; i++){
+			longtitude+=points[i].longtitude;
+			latitude+=points[i].latitude;
+			altitude+=points[i].altitude;
+			piSum+=piOfBest[i];
+		}
 
 		Point3D p=new Point3D(longtitude/piSum, latitude/piSum, altitude/piSum);
 		return p;
