@@ -1,13 +1,11 @@
 import java.util.ArrayList;
-
+/**
+ * This class represents the final wifi rows we read 
+ * after filtering the 10 strongest
+ *
+ * @author Rachel
+ */
 public class WifiScan implements Comparable <WifiScan> {
-	/**
-	 *This class represents the final wifi rows we read 
-	 *after filtering the 10 strongest
-	 *
-	 * @author Rachel
-	 */
-
 	String id,date,time;
 	Point3D p;
 	int numOfScans=0;
@@ -29,8 +27,8 @@ public class WifiScan implements Comparable <WifiScan> {
 		this.time = time;
 		this.id = id;
 		this.p = new Point3D(longtitude, latitude, altitude);
-
 	}
+
 	/**
 	 * the constructor for only one wifi
 	 * 
@@ -52,11 +50,29 @@ public class WifiScan implements Comparable <WifiScan> {
 		this.id = id;
 		this.p = new Point3D(longtitude, latitude, altitude);
 		addline (Signal, mac, SSID, frequncy);
-
 	}
+
 	/**
-	 * the constructor without a location
+	 * a constructor without a location of one line
 	 * 
+	 * @param date
+	 * @param time
+	 * @param id
+	 * @param Signal
+	 * @param SSID
+	 * @param mac
+	 * @param frequncy
+	 */
+	public WifiScan( String date ,String time, String id, int Signal, String SSID,String mac , int frequncy) {
+		this.date = date;
+		this.time = time;
+		this.id = id;
+		addline (Signal, mac, SSID, frequncy);
+	}
+
+	/**
+	 * a constructor without a location 
+	 *  
 	 * @param date
 	 * @param time
 	 * @param id
@@ -78,7 +94,8 @@ public class WifiScan implements Comparable <WifiScan> {
 		this.date = r.date;
 		this.time = r.time;
 		this.id = r.id;	
-		this.p = new Point3D(r.p.longtitude, r.p.latitude, r.p.altitude);
+		if (p!=null)
+			this.p = new Point3D(r.p.longtitude, r.p.latitude, r.p.altitude);
 		addline (r.wifis.get(0).Signal, r.wifis.get(0).mac, r.wifis.get(0).SSID, r.wifis.get(0).frequncy);	
 	}
 
@@ -104,18 +121,16 @@ public class WifiScan implements Comparable <WifiScan> {
 	 */
 	public void setLocation(double latitude, double longtitude, double altitude) {
 		this.p = new Point3D(longtitude, latitude, altitude);
-
 	}
-	
+
 	/**
 	 * sets the location for a line without location with a point 
 	 * @param p
 	 */
 	public void setLocation(Point3D p) {
 		this.p = new Point3D(p.longtitude, p.latitude, p.altitude);
-
 	}
-	
+
 	/**
 	 * this function is to use the collection sort in the ArrayList
 	 */
