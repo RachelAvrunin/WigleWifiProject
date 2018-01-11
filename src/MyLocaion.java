@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,9 @@ public class MyLocaion {
 	 * @param filenameToFix
 	 * @param k
 	 */
-	public  static ArrayList<WifiScan> location(String filename,String filenameToFix) {
+	public  static void location(String filename,String filenameToFix) {
+		Writer d = new Writer();
+
 		CombinedFileReader list=new CombinedFileReader();
 		list.readAndNotSplit(filename);
 
@@ -33,8 +36,18 @@ public class MyLocaion {
 			p=location(list.Lines, listToFix.Lines.get(i), listForMac.Lines);
 			listToFix.Lines.get(i).setLocation(p);
 		}
-		return listToFix.Lines;
+	 	String s = ReadFolderWriteCsv.turnToString(listToFix.Lines);
+		try {
+
+			d.csvWriter(s,"C:\\Users\\Rachel\\Downloads\\study\\OR\\fixedCsv.csv"); 
+		}
+		catch (IOException e) {
+
+			e.printStackTrace();
+
+		} 
 	}
+	
 	/**
 	 * the function takes an ArrayList of FinalRow
 	 * and calculate the estimated location of me
