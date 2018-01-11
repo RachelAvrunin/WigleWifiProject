@@ -41,20 +41,33 @@ public class CombinedFileReader {
 			while ((sCurrentLine = br.readLine()) != null) {
 				splitString=sCurrentLine.split(",");
 				splitDate=splitString[0].split(" ");
-
-				for (int i = 6; i < splitString.length; i+=4) {
-
-					Lines.add(new WifiScan(
-							splitDate[0],							//String date
-							splitDate[1],							//String time
-							splitString[1],							//String id
-							Double.parseDouble(splitString[2]),		// double latitude
-							Double.parseDouble(splitString[3]),		//double longtitude
-							Double.parseDouble(splitString[4]),		//double altitude
-							Integer.parseInt(splitString[i+3]),		//int Signal
-							splitString[i],							//String SSID
-							splitString[i+1],						//String mac
-							Integer.parseInt(splitString[i+2]))); 	//int frequncy
+				if (splitString[2].equals("?") || splitString[3].equals("?") || splitString[4].equals("?")){
+					for (int i = 6; i < splitString.length; i+=4) {
+						Lines.add(new WifiScan(
+								splitDate[0],							//String date
+								splitDate[1],							//String time
+								splitString[1],							//String id
+								Integer.parseInt(splitString[i+3]),		//int Signal
+								splitString[i],							//String SSID
+								splitString[i+1],						//String mac
+								Integer.parseInt(splitString[i+2]))); 	//int frequncy
+					}		
+				}
+				else{
+					
+					for (int i = 6; i < splitString.length; i+=4) {
+						Lines.add(new WifiScan(
+								splitDate[0],							//String date
+								splitDate[1],							//String time
+								splitString[1],							//String id
+								Double.parseDouble(splitString[2]),		// double latitude
+								Double.parseDouble(splitString[3]),		//double longtitude
+								Double.parseDouble(splitString[4]),		//double altitude
+								Integer.parseInt(splitString[i+3]),		//int Signal
+								splitString[i],							//String SSID
+								splitString[i+1],						//String mac
+								Integer.parseInt(splitString[i+2]))); 	//int frequncy
+					}
 				}
 
 			}
@@ -131,23 +144,24 @@ public class CombinedFileReader {
 					len=0;
 
 				}
-				else{	Lines.add(new WifiScan(
-						splitDate[0],							//String date
-						splitDate[1],							//String time
-						splitString[1],							//String id
-						Double.parseDouble(splitString[2]),		// double latitude
-						Double.parseDouble(splitString[3]),		//double longtitude
-						Double.parseDouble(splitString[4])));	//double altitude
-				size++;
-				for (int i = 6; i < splitString.length; i+=4)
-					if(len<Integer.parseInt(splitString[5])) {
-					Lines.get(size).addline(Integer.parseInt(splitString[i+3]),	//int Signal
-							splitString[i+1],									//String mac 
-							splitString[i],										//String SSID
-							Integer.parseInt(splitString[i+2])); 				//int frequncy
-				len++;
-					}
-				len=0;
+				else{
+					Lines.add(new WifiScan(
+							splitDate[0],							//String date
+							splitDate[1],							//String time
+							splitString[1],							//String id
+							Double.parseDouble(splitString[2]),		// double latitude
+							Double.parseDouble(splitString[3]),		//double longtitude
+							Double.parseDouble(splitString[4])));	//double altitude
+					size++;
+					for (int i = 6; i < splitString.length; i+=4)
+						if(len<Integer.parseInt(splitString[5])) {
+							Lines.get(size).addline(Integer.parseInt(splitString[i+3]),	//int Signal
+									splitString[i+1],									//String mac 
+									splitString[i],										//String SSID
+									Integer.parseInt(splitString[i+2])); 				//int frequncy
+							len++;
+						}
+					len=0;
 				}
 
 
@@ -195,11 +209,11 @@ public class CombinedFileReader {
 			}
 		});
 
-		String TempSSID;
+		String TempMac;
 		int index=0;
 		while (!Lines.isEmpty()){
-			TempSSID=Lines.get(index).wifis.get(0).SSID;
-			while (flag && TempSSID.equals(Lines.get(index).wifis.get(0).mac)){
+			TempMac=Lines.get(index).wifis.get(0).mac;
+			while (flag && TempMac.equals(Lines.get(index).wifis.get(0).mac)){
 				temp.add(new WifiScan(Lines.get(index)));
 				index++;
 				if (index>=Lines.size()){
