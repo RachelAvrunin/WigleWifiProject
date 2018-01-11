@@ -36,7 +36,7 @@ public class MyLocaion {
 			p=location(list.Lines, listToFix.Lines.get(i), listForMac.Lines);
 			listToFix.Lines.get(i).setLocation(p);
 		}
-	 	String s = ReadFolderWriteCsv.turnToString(listToFix.Lines);
+		String s = ReadFolderWriteCsv.turnToString(listToFix.Lines);
 		try {
 
 			d.csvWriter(s,"C:\\Users\\Rachel\\Downloads\\study\\OR\\fixedCsv.csv"); 
@@ -47,7 +47,7 @@ public class MyLocaion {
 
 		} 
 	}
-	
+
 	/**
 	 * the function takes an ArrayList of FinalRow
 	 * and calculate the estimated location of me
