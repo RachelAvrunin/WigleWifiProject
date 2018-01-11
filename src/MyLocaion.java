@@ -74,6 +74,7 @@ public class MyLocaion {
 						weight=NORM/(Math.pow(dif,SIG_DIFF)*Math.pow(f.wifis.get(macOfLinef).Signal,POWER));
 					}
 				}
+				
 				if(!flag)
 					weight=NORM/(Math.pow(DIFF_NO_SIG,SIG_DIFF)*Math.pow(NO_SIG,POWER));
 				piOfLine=piOfLine*weight;
