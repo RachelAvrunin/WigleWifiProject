@@ -26,7 +26,7 @@ public class routerLocationTest {
 		list1.add(new WifiScan("28/10/2017" ,"18:34:15", "LG-H850",32.369, 34.756, 38, -60, "DIRECT-A5dfnb","fc:4f:db:7e:50:a6" ,44));
 		list1.add(new WifiScan("28/10/2017" ,"18:00:17", "LG-H850",32.147, 34.741, 40, -72, "DIRECT-A5zcvvb","fg:8f:db:7e:52:a6" ,2));
 
-		Point3D ans=routerLocation.location(list1,"fc:4f:db:7e:50:a6");
+		Point3D ans=routerLocation.location(list1,"fc:4f:db:7e:50:a6",3);
 		Point3D p= new Point3D(34.803868237976296, 32.34244914757011, 33.514710073257);
 
 		assertTrue("router location error", ans.longtitude==p.longtitude && ans.latitude==p.latitude && ans.altitude==p.altitude);
@@ -50,7 +50,7 @@ public class routerLocationTest {
 		list1.add(new WifiScan("28/10/2017" ,"18:34:15", "LG-H850",32.369, 34.756, 38, -60, "DIRECT-A5dfnb","fc:4f:db:7e:50:a6" ,44));
 		list1.add(new WifiScan("28/10/2017" ,"18:00:17", "LG-H850",32.147, 34.741, 40, -72, "DIRECT-A5zcvvb","fg:8f:db:7e:52:a6" ,2));
 
-		Point3D ans=routerLocation.location(list1,"fn:7f:db:7e:20:a6");
+		Point3D ans=routerLocation.location(list1,"fn:7f:db:7e:20:a6",3);
 		Point3D p= new Point3D(34.411, 32.417, 52.99999999999999);
 
 		assertTrue("router location with 1 mac exist error", ans.longtitude==p.longtitude && ans.latitude==p.latitude && ans.altitude==p.altitude);
