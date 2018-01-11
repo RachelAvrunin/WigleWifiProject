@@ -16,11 +16,10 @@ public class Writer {
 	 * @param line
 	 * @throws IOException
 	 */
-	public void csvWriter(String line) 
+	public void csvWriter(String line , String filename) 
 			throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Rachel\\Downloads\\study\\OR\\StrongestWifi.csv"));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 		writer.write(line);
-
 		writer.close();
 	}
 }

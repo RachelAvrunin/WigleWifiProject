@@ -31,7 +31,7 @@ public class ReadFolderWriteCsv {
 		// send to writer
 		try {
 
-			d.csvWriter(stringForFile); 
+			d.csvWriter(stringForFile,"C:\\Users\\Rachel\\Downloads\\study\\OR\\StrongestWifi.csv"); 
 		}
 		catch (IOException e) {
 
