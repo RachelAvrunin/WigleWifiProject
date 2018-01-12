@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * 
  * @author Rachel
  */
-public class MyLocaion {
+public class MyLocation {
 	final static int NORM = 10000, POWER = 2, MIN_DIFF = 3, DIFF_NO_SIG = 100, NO_SIG = -120;
 	final static double  SIG_DIFF = 0.4;
 	/**
