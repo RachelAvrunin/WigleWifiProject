@@ -11,7 +11,7 @@ public class Matala {
 
 		ReadFolderWriteCsv.csv();
 		KmlReadWrite.readWrite();
-		MyLocaion.location(FILENAME1,FILENAME2,4);
+		MyLocation.location(FILENAME1,FILENAME2,4);
 		routerLocation.location(FILENAME1,3);
 
 
